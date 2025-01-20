@@ -1,43 +1,37 @@
-# Eliza
+# Lumos AI Agent 🤖
 
-## Edit the character files
+Lumos AI-Agent is an intelligent assistant designed to enhance the user experience within the Lumos application. This agent leverages advanced artificial intelligence to:
 
-Open `src/character.ts` to modify the default character. Uncomment and edit.
+- Provide precise and personalized guidance on calculating Impermanent Loss (IL).
+- Help interpret simulations of liquidity strategies in Full-Range and CLMM Pools.
+- Offer real-time recommendations to optimize automated management of CLMM positions.
+- Enable informed decision-making using Starknet's blockchain technology for fast and efficient data processing.
 
-### Custom characters
+With Lumos AI-Agent, users can effectively navigate the DeFi ecosystem and maximize the potential of their liquidity strategies.
 
-To load custom characters instead:
-- Use `pnpm start --characters="path/to/your/character.json"`
-- Multiple character files can be loaded simultaneously
+## Disclaimer 🚨
 
-### Add clients
-```
-clients: [Clients.TWITTER, Clients.DISCORD],
-```
+We took inspiration from the Eliza Starter project and began building upon this repository: [https://github.com/elizaOS/eliza-starter](https://github.com/elizaOS/eliza-starter).
 
-## Duplicate the .env.example template
+## Steps to Run 🏃🏻
+
+### 1. Installations 💻
+
+- Node.js: 23.6.0
+- pnpm: 10.0
+
+### 2. Copy the .env File and Add the Together API Key 🔧
 
 ```bash
 cp .env.example .env
 ```
 
-\* Fill out the .env file with your own values.
+You can download the API key here: [https://api.together.ai/](https://api.together.ai/)
 
-### Add login credentials and keys to .env
-```
-DISCORD_APPLICATION_ID="discord-application-id"
-DISCORD_API_TOKEN="discord-api-token"
-...
-OPENROUTER_API_KEY="sk-xx-xx-xxx"
-...
-TWITTER_USERNAME="username"
-TWITTER_PASSWORD="password"
-TWITTER_EMAIL="your@email.com"
-```
-
-## Install dependencies and start your agent
+### 3. Run the Agent 😁
 
 ```bash
-pnpm i && pnpm start
+pnpm install
+pnpm build
+pnpm start --characters="characters/lumos.character.json"
 ```
-Note: this requires node to be at least version 22 when you install packages and run the agent.
