@@ -129,40 +129,87 @@
   },
   "liquidityProvider": {
     "addLiquidity": {
-      "description": "To add liquidity to Ekubo, follow the three-step process via the official app at app.ekubo.org.",
+      "description": "To add liquidity to Ekubo, you must create a position using the official interface hosted at app.ekubo.org. Always bookmark the app and avoid signing transactions from unverified websites to prevent phishing scams.",
       "steps": {
         "1": {
           "title": "Selecting a Pool",
-          "description": "Choose a pool by selecting the token pair and fee. The tokens will determine the market you're making, and the fee will define the charges on swaps and withdrawals. Tick spacing should be set to around twice the fee for optimal leverage."
+          "description": "Choose a pool by selecting the token pair and fee. The tokens determine the market you're making, and the fee defines the charges on swaps and withdrawals. Tick spacing should be set to about twice the fee for optimal leverage.",
+          "details": {
+            "tokenPair": "The two tokens you select (e.g., ETH/USDC) represent the market you wish to make. The quote token is the numerator of the prices displayed.",
+            "fee": "The fee you select is charged to swappers and also applies to your principal when withdrawing liquidity.",
+            "tickSpacing": "Tick spacing affects how small your price range can be, influencing the leverage of your position."
+          }
         },
         "2": {
           "title": "Selecting a Price Range",
-          "description": "Set a price range for your liquidity position. Your position becomes inactive if the market price moves out of range. Select a range that balances capital efficiency and minimizes withdrawal frequency."
+          "description": "Set a price range for your liquidity position. If the market price moves outside this range, your position becomes inactive and stops earning fees.",
+          "details": {
+            "priceBoundaries": "If the price reaches the upper boundary, you will hold entirely the quote token. At the lower boundary, you will hold entirely the base token.",
+            "capitalEfficiency": "Choose a range that maximizes capital efficiency while minimizing the frequency of withdrawals, as each withdrawal incurs a fee."
+          }
         },
         "3": {
           "title": "Specifying an Amount",
-          "description": "Enter the amount of capital you wish to deposit into the pool. Ensure that the amount is less than your available balance and then click 'Add Liquidity' to finalize your position."
+          "description": "Enter the amount of capital you wish to deposit into the pool. Ensure the amount is less than your available balance, then click 'Add Liquidity' to create your position.",
+          "details": {
+            "withdrawalFee": "When withdrawing liquidity, you pay a fee proportional to the pool’s fee tier. For example, in a 5 bips pool, withdrawing 1050 USDC and 0.952 ETH would incur a fee of 0.525 USDC and 0.000476 ETH."
+          }
         }
       },
-      "withdrawalFee": "When you withdraw liquidity, you will incur a fee based on the pool’s fee tier, calculated from the principal and any earned fees."
+      "withdrawalFee": {
+        "description": "The withdrawal fee is equal to the pool’s fee tier and is charged on your principal. It can be thought of as a swap fee for rebalancing your liquidity.",
+        "example": "If you deposit 1000 USDC and 1 ETH into a 5 bips pool and later withdraw 1050 USDC and 0.952 ETH, you will pay a fee of 0.525 USDC and 0.000476 ETH."
+      }
     }
   },
   "swapping": {
-    "description": "Ekubo provides a simple and efficient swapping interface for users at app.ekubo.org/swap.",
-    "alternatives": "Additionally, you can swap exclusively on Ekubo using DEX aggregators like AVNU and Fibrous, two of the most popular platforms on Starknet."
+    "description": "Ekubo provides a simple and efficient swapping interface at app.ekubo.org/swap. You can also use popular DEX aggregators like AVNU and Fibrous to swap exclusively on Ekubo.",
+    "steps": {
+      "1": {
+        "title": "Access the Swap Interface",
+        "description": "Visit app.ekubo.org/swap to access Ekubo’s swapping interface."
+      },
+      "2": {
+        "title": "Select Tokens",
+        "description": "Choose the tokens you wish to swap. Enter the amount you want to swap, and the interface will display the expected output."
+      },
+      "3": {
+        "title": "Confirm the Swap",
+        "description": "Review the transaction details, including the expected output and fees, then confirm the swap."
+      }
+    },
+    "alternatives": {
+      "description": "You can also swap using DEX aggregators like AVNU and Fibrous, which are integrated with Ekubo for efficient trading."
+    }
   },
   "dcaOrders": {
-    "description": "Dollar-Cost Averaging (DCA) orders are implemented in Ekubo through the TWAMM (Time-Weighted Average Market Maker) extension, enabling efficient programmatic entry and exit from positions over time.",
+    "description": "Ekubo’s TWAMM (Time-Weighted Average Market Maker) extension allows users to place DCA orders, enabling efficient programmatic entry and exit from positions over time.",
     "features": {
-      "dcaEnabledPools": "Liquidity pools supporting DCA orders, allowing liquidity providers to earn fees from DCA orders as well as regular swap volume.",
-      "concentratedLiquidity": "Not supported in DCA pools, as the focus is on time-weighted order execution.",
-      "orderExecution": "DCA orders are executed at intervals, up to once per block (approximately every 6 minutes on Starknet), best suited for trades over hours, days, or weeks.",
+      "dcaEnabledPools": "Liquidity pools that support DCA orders, allowing liquidity providers to earn fees from both DCA orders and regular swap volume.",
+      "orderExecution": "DCA orders are executed up to once per block (approximately every 6 minutes on Starknet), making them ideal for trades over hours, days, or weeks.",
       "orderNeting": "Opposing DCA orders are netted against each other, and the remaining difference is executed in the pool, ensuring efficient pricing and lower fees for large swaps."
     },
     "useCases": [
       "Moving large amounts of capital into and out of positions where the order books are thin.",
       "Programmatic token conversion.",
       "Entering/exiting positions without needing to time the market."
-    ]
+    ],
+    "creatingDcaOrders": {
+      "description": "To create a DCA order, visit the DCA interface at app.ekubo.org/dca. Specify the token pair, amount, and duration for your order.",
+      "fees": {
+        "description": "DCA orders incur fees in two ways: (1) when the order is stopped, and (2) when the orders are imbalanced and must be executed against the liquidity pool.",
+        "details": {
+          "stoppingFee": "A fee is paid to liquidity providers when an order is stopped, calculated from the remaining amount to be sold.",
+          "swapFee": "Fees are paid to liquidity providers when orders are executed against the pool, similar to regular swap fees."
+        }
+      }
+    },
+    "addingLiquidityToDcaPools": {
+      "description": "You can provide liquidity to DCA-enabled pools to earn fees from DCA orders. Concentrated liquidity is not supported in these pools.",
+      "details": {
+        "exclusiveRights": "Liquidity providers in DCA-enabled pools have exclusive rights to the TWAMM volume.",
+        "nftRepresentation": "When you place a DCA order, you receive an NFT representing your ownership of the order. Never sell this NFT, as it gives up the right to the associated capital."
+      }
+    }
   }
 }
