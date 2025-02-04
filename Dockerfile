@@ -22,9 +22,6 @@ COPY tsconfig.json ./
 # Copy the rest of the application code
 COPY ./src ./src
 COPY ./characters ./characters
-COPY ./plugin-starknet ./plugin-starknet
-
-RUN cd ./plugin-starknet && pnpm i && pnpm build
 
 # Install dependencies and build the project
 RUN pnpm install --frozen-lockfile
