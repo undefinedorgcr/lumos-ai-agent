@@ -24,7 +24,7 @@ async function handleUserInput(input, agentId) {
       `http://localhost:${serverPort}/${agentId}/message`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
         body: JSON.stringify({
           text: input,
           userId: "user",
